@@ -1,24 +1,39 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import s from "./Navbar.module.css";
 export const Navbar = () => {
   return (
     <div className={s.navbar}>
       <div>
-        <Link
+        <NavLink
           className={({ isActive }) =>
             isActive ? `${s.link} ${s.active}` : `${s.link}`
           }
           to="/"
         >
           Firebase
-        </Link>
+        </NavLink>
       </div>
       <ul className={s.linksList}>
         <li>
-          <Link className={s.link} to="/login">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? `${s.link} ${s.active}` : `${s.link}`
+            }
+            to="/login"
+          >
             Login
-          </Link>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? `${s.link} ${s.active}` : `${s.link}`
+            }
+            to="/register"
+          >
+            Sign Up
+          </NavLink>
         </li>
       </ul>
     </div>
