@@ -1,10 +1,11 @@
-import { Link, Outlet } from "react-router-dom";
+/* eslint-disable react/react-in-jsx-scope */
+import { Outlet } from "react-router-dom";
+import { Navbar } from "./components/Navbar/Navbar";
 
 export default function Root() {
   return (
     <div>
-      Firebase Basics!
-      <Link to="/login">Login Page</Link>
+      <Navbar />
       <Outlet />
     </div>
   );

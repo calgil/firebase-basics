@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useRouteError } from "react-router-dom";
 
 export default function ErrorPage() {
