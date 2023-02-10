@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./assets/index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root";
-import ErrorPage from "./routes/ErrorPage/ErrorPage";
+import ErrorPage from "./routes/ErrorPage";
 import Login from "./routes/Login";
 import RegisterUser from "./routes/RegisterUser";
 
