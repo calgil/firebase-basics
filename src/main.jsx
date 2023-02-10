@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root";
 import ErrorPage from "./routes/ErrorPage";
 import Login from "./routes/Login";
-import RegisterUser from "./routes/RegisterUser";
+import RegisterUser, { action as registerAction } from "./routes/RegisterUser";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +27,7 @@ const router = createBrowserRouter([
           {
             path: "register",
             element: <RegisterUser />,
+            action: registerAction,
           },
         ],
       },
