@@ -18,6 +18,9 @@ export async function action({ request }) {
       return newUserData;
     })
     .then(({ email, password, confirmPassword }) => {
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match");
+      }
       return { email, password, confirmPassword };
     })
     .then(async ({ email, password }) => {
