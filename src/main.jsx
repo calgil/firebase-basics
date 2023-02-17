@@ -6,6 +6,7 @@ import Root from "./Root";
 import ErrorPage from "./routes/ErrorPage";
 import Login from "./routes/Login";
 import RegisterUser, { action as registerAction } from "./routes/RegisterUser";
+import { LandingPage } from "./components/LandingPage/LandingPage";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/",
-            element: <div>Home Page</div>,
+            element: <LandingPage />,
           },
           {
             path: "login",
