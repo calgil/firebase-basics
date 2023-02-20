@@ -4,6 +4,7 @@ import {
   updateProfile,
   getAuth,
 } from "firebase/auth";
+// import { useAuthState } from "react-firebase-hooks/auth";
 
 // move these things to .env file
 
@@ -24,9 +25,8 @@ export const registerNewUser = (username, email, password) => {
   createUserWithEmailAndPassword(auth, email, password).then(
     (userCredential) => {
       const user = userCredential.user;
-      console.log({ user });
-      if (auth.currentUser) {
-        updateProfile(auth.currentUser, {
+      if (user) {
+        return updateProfile(auth.currentUser, {
           displayName: username,
         });
       }

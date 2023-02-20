@@ -6,7 +6,8 @@ import Root from "./Root";
 import ErrorPage from "./routes/ErrorPage";
 import Login from "./routes/Login";
 import RegisterUser, { action as registerAction } from "./routes/RegisterUser";
-import { LandingPage } from "./components/LandingPage/LandingPage";
+import { Home } from "./components/Home/Home";
+import { FirebaseAuthProvider } from "./providers/firebase.provider";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/",
-            element: <LandingPage />,
+            element: <Home />,
           },
           {
             path: "login",
@@ -38,6 +39,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <FirebaseAuthProvider>
+      <RouterProvider router={router} />
+    </FirebaseAuthProvider>
   </React.StrictMode>
 );
