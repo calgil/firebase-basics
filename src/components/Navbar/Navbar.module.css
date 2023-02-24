@@ -12,11 +12,14 @@
 }
 
 .link {
-  color: orange;
+  color: white;
   text-decoration: none;
   margin: 0 10px;
+  line-height: 1.5;
+  font-size: 1.2rem;
 }
 
 .link.active {
   color: green;
+  text-decoration: underline;
 }

@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
 import {
-  createUserWithEmailAndPassword,
-  updateProfile,
+  // createUserWithEmailAndPassword,
+  // updateProfile,
   getAuth,
+  GoogleAuthProvider,
 } from "firebase/auth";
 // import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -18,18 +19,21 @@ const firebaseApp = initializeApp({
   measurementId: "G-SSCNFFJ3XD",
 });
 
-export const auth = getAuth(firebaseApp);
+const auth = getAuth(firebaseApp);
+const provider = new GoogleAuthProvider();
 
-export const registerNewUser = (username, email, password) => {
-  console.log({ username, email, password });
-  createUserWithEmailAndPassword(auth, email, password).then(
-    (userCredential) => {
-      const user = userCredential.user;
-      if (user) {
-        return updateProfile(auth.currentUser, {
-          displayName: username,
-        });
-      }
-    }
-  );
-};
+// export const registerNewUser = (username, email, password) => {
+//   console.log({ username, email, password });
+//   createUserWithEmailAndPassword(auth, email, password).then(
+//     (userCredential) => {
+//       const user = userCredential.user;
+//       if (user) {
+//         return updateProfile(auth.currentUser, {
+//           displayName: username,
+//         });
+//       }
+//     }
+//   );
+// };
+
+export { auth, provider };
