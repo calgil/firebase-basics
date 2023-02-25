@@ -1,11 +1,12 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 // import { useAuthState } from "react-firebase-hooks/auth";
 import { NavLink } from "react-router-dom";
-import { useFirebaseAuth } from "../../providers/firebase.provider";
+// import { useFirebaseAuth } from "../../providers/firebase.provider";
 import s from "./Navbar.module.css";
 
-export const Navbar = () => {
-  const { currentUser } = useFirebaseAuth();
+export const Navbar = ({ currentUser }) => {
+  // const { currentUser } = useFirebaseAuth();
   console.log({ currentUser });
 
   return (

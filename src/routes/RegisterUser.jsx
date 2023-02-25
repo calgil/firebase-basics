@@ -5,6 +5,7 @@ import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { AuthForm } from "../components/AuthForm/AuthForm";
 import { useFirebaseAuth } from "../providers/firebase.provider";
+import registerBg from "../assets/registerBg.webp";
 // import { registerNewUser } from "../hooks/firebaseAuth";
 
 // export async function action({ request }) {
@@ -40,14 +41,14 @@ import { useFirebaseAuth } from "../providers/firebase.provider";
 
 export default function RegisterUser() {
   // const navigate = useNavigate();
-  const { registerNewUser } = useFirebaseAuth();
+  const { registerNewUser, updateUser } = useFirebaseAuth();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const createUser = (e) => {
     e.preventDefault();
-    registerNewUser(username, email, password);
+    registerNewUser(email, password).then(updateUser(username));
   };
 
   const inputData = [
@@ -87,6 +88,7 @@ export default function RegisterUser() {
   return (
     <AuthForm
       onSubmit={createUser}
+      backgroundImage={registerBg}
       inputs={inputData}
       title="Create an account"
       buttonText="New account"

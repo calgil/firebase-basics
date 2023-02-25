@@ -15,30 +15,63 @@ const FirebaseAuthContext = createContext({});
 export const FirebaseAuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       console.log("auth state change", { user });
+  //       return setCurrentUser(user);
+  //     }
+  //     return setCurrentUser(null);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("auth state change", { user });
-        return setCurrentUser(JSON.parse(JSON.stringify(user)));
-      }
-      return setCurrentUser(null);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("Auth", user);
+      setCurrentUser(user);
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
-  const registerNewUser = (username, email, password) => {
-    console.log("Create New User", { username, email, password });
+  const registerNewUser = (email, password) => {
+    console.log("Create New User", { email, password });
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("created", { user });
-        if (user) {
-          updateProfile(auth.currentUser, { displayName: username });
-        }
+      })
+      .then((username) => {
+        updateProfile(auth.currentUser, { displayName: username });
       })
       .catch((error) => {
         throw new Error(error.message);
       });
   };
+
+  const updateUser = (username) => {
+    updateProfile(auth.currentUser, { displayName: username });
+  };
+
+  // const registerNewUser = (username, email, password) => {
+  //   console.log("Create New User", { username, email, password });
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       const user = userCredential.user;
+  //       console.log("created", { user });
+  //       if (user) {
+  //         return username;
+  //       }
+  //     })
+  //     .then((username) => {
+  //       updateProfile(auth.currentUser, { displayName: username });
+  //     })
+  //     .catch((error) => {
+  //       throw new Error(error.message);
+  //     });
+  // };
 
   const googleSignIn = () => {
     console.log("google");
@@ -63,7 +96,7 @@ export const FirebaseAuthProvider = ({ children }) => {
 
   return (
     <FirebaseAuthContext.Provider
-      value={{ currentUser, registerNewUser, googleSignIn }}
+      value={{ currentUser, registerNewUser, googleSignIn, updateUser }}
     >
       {children}
     </FirebaseAuthContext.Provider>
@@ -76,5 +109,6 @@ export const useFirebaseAuth = () => {
     currentUser: context.currentUser,
     registerNewUser: context.registerNewUser,
     googleSignIn: context.googleSignIn,
+    updateUser: context.updateUser,
   };
 };
