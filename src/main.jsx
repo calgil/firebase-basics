@@ -4,7 +4,7 @@ import "./assets/index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root";
 import ErrorPage from "./routes/ErrorPage";
-import Login from "./routes/Login";
+import LoginUser from "./routes/LoginUser";
 import RegisterUser from "./routes/RegisterUser";
 import { Home } from "./components/Home/Home";
 import { FirebaseAuthProvider } from "./providers/firebase.provider";
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
           },
           {
             path: "login",
-            element: <Login />,
+            element: <LoginUser />,
           },
           {
             path: "register",

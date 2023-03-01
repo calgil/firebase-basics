@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
@@ -53,23 +54,18 @@ export const FirebaseAuthProvider = ({ children }) => {
         throw new Error(error.message);
       });
   };
-  // const registerNewUser = (username, email, password) => {
-  //     console.log("Create New User", { username, email, password });
-  //     createUserWithEmailAndPassword(auth, email, password)
-  //       .then((userCredential) => {
-  //         const user = userCredential.user;
-  //         console.log("created", { user });
-  //         if (user) {
-  //           return username;
-  //         }
-  //       })
-  //       .then((username) => {
-  //         updateProfile(auth.currentUser, { displayName: username });
-  //       })
-  //       .catch((error) => {
-  //         throw new Error(error.message);
-  //       });
-  //   };
+
+  const signInUser = async (email, password) => {
+    console.log("sign in", { email, password });
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setCurrentUser(user);
+      })
+      .catch((error) => {
+        throw new Error(error.message);
+      });
+  };
 
   const googleSignIn = () => {
     console.log("google");
@@ -94,7 +90,7 @@ export const FirebaseAuthProvider = ({ children }) => {
 
   return (
     <FirebaseAuthContext.Provider
-      value={{ currentUser, registerNewUser, googleSignIn }}
+      value={{ currentUser, registerNewUser, googleSignIn, signInUser }}
     >
       {children}
     </FirebaseAuthContext.Provider>
@@ -107,6 +103,7 @@ export const useFirebaseAuth = () => {
     currentUser: context.currentUser,
     registerNewUser: context.registerNewUser,
     googleSignIn: context.googleSignIn,
+    signInUser: context.signInUser,
     // updateUser: context.updateUser,
   };
 };

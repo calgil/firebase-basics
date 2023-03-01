@@ -1,46 +1,12 @@
 /* eslint-disable react/react-in-jsx-scope */
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { redirect } from "react-router-dom";
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthForm } from "../components/AuthForm/AuthForm";
 import { useFirebaseAuth } from "../providers/firebase.provider";
 import registerBg from "../assets/registerBg.webp";
-// import { registerNewUser } from "../hooks/firebaseAuth";
-
-// export async function action({ request }) {
-//   return Promise.resolve()
-//     .then(async () => {
-//       const formData = await request.formData();
-//       return formData;
-//     })
-//     .then((formData) => {
-//       const newUserData = Object.fromEntries(formData);
-//       return newUserData;
-//     })
-//     .then(({ username, email, password }) => {
-//       // .then(({ email, password, confirmPassword }) => {
-//       // if (password !== confirmPassword) {
-//       //   throw new Error("Passwords do not match");
-//       // }
-//       return { username, email, password };
-//     })
-//     .then(({ username, email, password }) => {
-//       registerNewUser(username, email, password);
-//     })
-//     .then(() => {
-//       return redirect("/");
-//     })
-//     .catch((error) => {
-//       const errorCode = error.code;
-//       const errorMessage = error.message;
-//       console.log({ errorCode, errorMessage });
-//       return null;
-//     });
-// }
 
 export default function RegisterUser() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { registerNewUser } = useFirebaseAuth();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -49,6 +15,7 @@ export default function RegisterUser() {
   const createUser = (e) => {
     e.preventDefault();
     registerNewUser(username, email, password);
+    navigate("/");
   };
 
   const inputData = [

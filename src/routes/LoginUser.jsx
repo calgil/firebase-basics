@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { AuthForm } from "../components/AuthForm/AuthForm";
 import loginBg from "../assets/loginBg.webp";
+import { useFirebaseAuth } from "../providers/firebase.provider";
 
 /* eslint-disable react/react-in-jsx-scope */
-export default function Login() {
+export default function LoginUser() {
+  const { signInUser } = useFirebaseAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const login = () => {
+
+  const login = (e) => {
+    e.preventDefault();
     console.log({ email, password });
+    if (!email || !password) {
+      return new Error("Email and Password are required");
+    }
+    signInUser(email, password);
   };
   const inputData = [
     {
@@ -24,12 +32,6 @@ export default function Login() {
       placeholder: "Create password",
       onChange: (e) => setPassword(e.target.value),
     },
-    // {
-    //   labelText: "Confirm Password",
-    //   name: "confirmPassword",
-    //   type: "password",
-    //   placeholder: "Confirm password",
-    // },
   ];
 
   const link = {
