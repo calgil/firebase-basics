@@ -36,12 +36,15 @@ export const FirebaseAuthProvider = ({ children }) => {
     };
   }, []);
 
-  const registerNewUser = (email, password) => {
-    console.log("Create New User", { email, password });
+  const registerNewUser = async (username, email, password) => {
+    console.log("Create New User", { username, email, password });
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("created", { user });
+        if (user) {
+          return username;
+        }
       })
       .then((username) => {
         updateProfile(auth.currentUser, { displayName: username });
@@ -50,28 +53,23 @@ export const FirebaseAuthProvider = ({ children }) => {
         throw new Error(error.message);
       });
   };
-
-  const updateUser = (username) => {
-    updateProfile(auth.currentUser, { displayName: username });
-  };
-
   // const registerNewUser = (username, email, password) => {
-  //   console.log("Create New User", { username, email, password });
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then((userCredential) => {
-  //       const user = userCredential.user;
-  //       console.log("created", { user });
-  //       if (user) {
-  //         return username;
-  //       }
-  //     })
-  //     .then((username) => {
-  //       updateProfile(auth.currentUser, { displayName: username });
-  //     })
-  //     .catch((error) => {
-  //       throw new Error(error.message);
-  //     });
-  // };
+  //     console.log("Create New User", { username, email, password });
+  //     createUserWithEmailAndPassword(auth, email, password)
+  //       .then((userCredential) => {
+  //         const user = userCredential.user;
+  //         console.log("created", { user });
+  //         if (user) {
+  //           return username;
+  //         }
+  //       })
+  //       .then((username) => {
+  //         updateProfile(auth.currentUser, { displayName: username });
+  //       })
+  //       .catch((error) => {
+  //         throw new Error(error.message);
+  //       });
+  //   };
 
   const googleSignIn = () => {
     console.log("google");
@@ -96,7 +94,7 @@ export const FirebaseAuthProvider = ({ children }) => {
 
   return (
     <FirebaseAuthContext.Provider
-      value={{ currentUser, registerNewUser, googleSignIn, updateUser }}
+      value={{ currentUser, registerNewUser, googleSignIn }}
     >
       {children}
     </FirebaseAuthContext.Provider>
@@ -109,6 +107,6 @@ export const useFirebaseAuth = () => {
     currentUser: context.currentUser,
     registerNewUser: context.registerNewUser,
     googleSignIn: context.googleSignIn,
-    updateUser: context.updateUser,
+    // updateUser: context.updateUser,
   };
 };

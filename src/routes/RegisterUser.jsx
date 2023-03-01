@@ -41,14 +41,14 @@ import registerBg from "../assets/registerBg.webp";
 
 export default function RegisterUser() {
   // const navigate = useNavigate();
-  const { registerNewUser, updateUser } = useFirebaseAuth();
+  const { registerNewUser } = useFirebaseAuth();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const createUser = (e) => {
     e.preventDefault();
-    registerNewUser(email, password).then(updateUser(username));
+    registerNewUser(username, email, password);
   };
 
   const inputData = [
