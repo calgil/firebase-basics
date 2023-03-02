@@ -12,7 +12,7 @@ export default function RegisterUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const createUser = (e) => {
+  const createUser = async (e) => {
     e.preventDefault();
     registerNewUser(username, email, password);
     navigate("/");
