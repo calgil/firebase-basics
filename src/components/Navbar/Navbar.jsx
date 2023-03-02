@@ -2,15 +2,12 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { NavLink } from "react-router-dom";
 import s from "./Navbar.module.css";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../hooks/firebaseAuth";
+// import { useAuthState } from "react-firebase-hooks/auth";
+// import { auth } from "../../hooks/firebaseAuth";
 import { useFirebaseAuth } from "../../providers/firebase.provider";
 
 export const Navbar = () => {
-  const [user] = useAuthState(auth);
-  // const [user, setUser] = useState(null);
   const { currentUser } = useFirebaseAuth();
-  // // console.log({ currentUser });
   console.log("display", currentUser?.displayName);
   return (
     <div className={s.navbar}>
@@ -24,7 +21,7 @@ export const Navbar = () => {
           Home
         </NavLink>
       </div>
-      {!user && (
+      {!currentUser && (
         <ul className={s.linksList}>
           <li>
             <NavLink
@@ -48,7 +45,7 @@ export const Navbar = () => {
           </li>
         </ul>
       )}
-      {user && <p>Hi {user?.displayName}!</p>}
+      {currentUser && <p>Hi {currentUser?.displayName}!</p>}
     </div>
   );
 };

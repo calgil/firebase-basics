@@ -7,6 +7,7 @@
   display: block;
   margin-bottom: 10px;
   margin-left: 5px;
+  cursor: pointer;
 }
 
 .input {
@@ -17,3 +18,5 @@
   border: 1px solid #a18276;
   border-radius: 8px;
 }
+
+/* TODO: Add focus/active styles to input */

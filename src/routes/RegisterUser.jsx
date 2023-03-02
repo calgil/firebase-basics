@@ -1,21 +1,26 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { AuthForm } from "../components/AuthForm/AuthForm";
 import { useFirebaseAuth } from "../providers/firebase.provider";
 import registerBg from "../assets/registerBg.webp";
+// import { signOut } from "firebase/auth";
+// import { auth } from "../hooks/firebaseAuth";
 
 export default function RegisterUser() {
-  const navigate = useNavigate();
-  const { registerNewUser } = useFirebaseAuth();
+  // const navigate = useNavigate();
+  const { registerNewUser, updateUser } = useFirebaseAuth();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const createUser = async (e) => {
     e.preventDefault();
-    registerNewUser(username, email, password);
-    navigate("/");
+    await registerNewUser(email, password);
+    await updateUser({ displayName: username });
+    // await signOut(auth);
+    // await signInUser(email, password);
+    // navigate("/");
   };
 
   const inputData = [

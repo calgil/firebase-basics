@@ -6,8 +6,11 @@ export const InputBase = ({
 }) => {
   return (
     <div className={s.inputContainer}>
-      <label className={s.label}>{labelText}</label>
+      <label htmlFor={name} className={s.label}>
+        {labelText}
+      </label>
       <input
+        id={name}
         placeholder={placeholder}
         onChange={onChange}
         className={s.input}

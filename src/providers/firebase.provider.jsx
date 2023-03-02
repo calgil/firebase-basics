@@ -38,17 +38,37 @@ export const FirebaseAuthProvider = ({ children }) => {
   //   // }
   // };
 
-  const registerNewUser = async (username, email, password) => {
+  const registerNewUser = async (email, password) => {
     console.log("Create New User", { email, password });
-    createUserWithEmailAndPassword(auth, email, password).then(
+    await createUserWithEmailAndPassword(auth, email, password).then(
       (userCredential) => {
         console.log("user was created", userCredential.user);
-        if (auth.currentUser) {
-          updateProfile(auth.currentUser, { displayName: username });
-        }
       }
     );
   };
+
+  const updateUser = async (updates) => {
+    await updateProfile(auth.currentUser, updates)
+      .then(() => {
+        console.log("success!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  // const registerNewUser = async (username, email, password) => {
+  //   console.log("Create New User", { email, password });
+  //   createUserWithEmailAndPassword(auth, email, password).then(
+  //     (userCredential) => {
+  //       console.log("user was created", userCredential.user);
+  //       if (auth.currentUser) {
+  //         updateProfile(auth.currentUser, { displayName: username });
+  //       }
+  //     }
+  //   );
+  // };
+
   // const registerNewUser = async (username, email, password) => {
   //   console.log("Create New User", { username, email, password });
   //   createUserWithEmailAndPassword(auth, email, password)
@@ -107,6 +127,7 @@ export const FirebaseAuthProvider = ({ children }) => {
         registerNewUser,
         googleSignIn,
         signInUser,
+        updateUser,
       }}
     >
       {children}
@@ -121,5 +142,6 @@ export const useFirebaseAuth = () => {
     registerNewUser: context.registerNewUser,
     googleSignIn: context.googleSignIn,
     signInUser: context.signInUser,
+    updateUser: context.updateUser,
   };
 };
