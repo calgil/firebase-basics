@@ -27,17 +27,6 @@ export const FirebaseAuthProvider = ({ children }) => {
     };
   }, []);
 
-  // const updateUser = async (updates) => {
-  //   return await updateProfile(auth.currentUser, updates).catch((error) =>
-  //     console.error(error)
-  //   );
-  //   // try {
-  //   //   return await updateProfile(auth.currentUser, updates);
-  //   // } catch (error) {
-  //   //   return new Error("Error updating user", error);
-  //   // }
-  // };
-
   const registerNewUser = async (email, password) => {
     console.log("Create New User", { email, password });
     await createUserWithEmailAndPassword(auth, email, password).then(
